@@ -1,8 +1,31 @@
-let cards = function () {
-    fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USRNZ0C4m2PW0dxqkBLiBpRMreEW49aYLc')
-    .then(response => response.json())
-    .then(data => console.log(data))
+//fetch data for hearthstone cards 
+const api_url = 'https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USRNZ0C4m2PW0dxqkBLiBpRMreEW49aYLc'
+function getCards() {
+    fetch(api_url)
+    .then(resp => {
+        //create response points if the api url is invalid
+        if (!resp.ok) {
+            throw Error("That fetch url is looking pretty scuffed. Check the url and try again")
+        }
+        return resp.json()
+    })
+    .then (data => {
+        //insert data into html file
+        const cardData = data.cards.map(cards => {
+            return `
+            <div id="card-container">
+                <img src=${cards.cropImage}>
+                <p>${cards.name}</p>   
+            </div>    
+            `;
+        }).join('')
+        document
+        .querySelector('#sampleSpace')
+        .insertAdjacentHTML('afterbegin', `<h1>${cardData}</h1>`)
+    })
+    .catch (err => console.error(err));
 }
+getCards()
 
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
@@ -33,10 +56,3 @@ function shuffleCards() {
     let userCardCount = 0;
     let cpuCardCount = 0;
 }
-
-/*
-    At this point, I need to add the API to generate the cards. To have the most up to date API, I needed to use the blizzard developer site.
-    Now I have to look into how to setup OAuth to access the API.
-    The oauth was set up through the blizzard developer website. There is a detailed instruction guide on how to set it up, as well as
-    the use of a youtube tutorial that analyzed the setup for World of Warcraft API. 
-*/
