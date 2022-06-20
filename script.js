@@ -1,5 +1,8 @@
 //fetch data for hearthstone cards 
-const api_url = 'https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USRNZ0C4m2PW0dxqkBLiBpRMreEW49aYLc'
+const api_url = 'https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USR15Cb6sFfS67sUXSSdZqZ0cgRXJnDoFM'
+
+let arr = []
+
 function getCards() {
     fetch(api_url)
     .then(resp => {
@@ -10,23 +13,19 @@ function getCards() {
         return resp.json()
     })
     .then (data => {
-        //insert data into html file
+        //gather data from fetch to create new array of collection
         const cardData = data.cards.map(cards => {
-            return `
-            <div id="card-container">
-                <img src=${cards.cropImage}>
-                <p>${cards.name}</p>   
-            </div>    
-            `;
-        }).join('')
-        document
-        .querySelector('#sampleSpace')
-        .insertAdjacentHTML('afterbegin', `<h1>${cardData}</h1>`)
+           let keys = Object.keys(cards)
+           console.log("Keys: ", keys);
+           let value = Object.values(cards)
+           console.log("Value: ", value)
+        })
+        console.log(cardData)
     })
     .catch (err => console.error(err));
 }
 getCards()
-
+console.log(arr)
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
 const manaCost = document.getElementById("manaCost");
@@ -56,3 +55,4 @@ function shuffleCards() {
     let userCardCount = 0;
     let cpuCardCount = 0;
 }
+
