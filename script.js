@@ -1,31 +1,16 @@
 //fetch data for hearthstone cards 
-const api_url = 'https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USR15Cb6sFfS67sUXSSdZqZ0cgRXJnDoFM'
+const api_url = 'https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USpy8HMUdraH3Xlwm609CSXp4RJOksMRd5'
 
-let arr = []
-
-function getCards() {
-    fetch(api_url)
-    .then(resp => {
-        //create response points if the api url is invalid
-        if (!resp.ok) {
-            throw Error("That fetch url is looking pretty scuffed. Check the url and try again")
-        }
-        return resp.json()
-    })
-    .then (data => {
-        //gather data from fetch to create new array of collection
-        const cardData = data.cards.map(cards => {
-           let keys = Object.keys(cards)
-           console.log("Keys: ", keys);
-           let value = Object.values(cards)
-           console.log("Value: ", value)
-        })
-        console.log(cardData)
-    })
-    .catch (err => console.error(err));
+const ex = [];
+async function getCards() {
+    const response = await fetch(api_url);
+    const data = await response.json();
+    cardData = data.cards
+    ex.push(cardData)
+    return ex
 }
 getCards()
-console.log(arr)
+
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
 const manaCost = document.getElementById("manaCost");
