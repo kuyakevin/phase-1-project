@@ -1,23 +1,19 @@
-//fetch data for hearthstone cards 
-const api_url = 'https://us.api.blizzard.com/hearthstone/cards?locale=en_US&type=minion&access_token=USpy8HMUdraH3Xlwm609CSXp4RJOksMRd5'
 
-//async methods used here to get everything to load and work properly compared to a regular fetch. 
-//Global array int and fetch data pushed into ex 
+//Global array int and fetch data pushed into cards 
 
-const cards = []
+
 async function getCards() {
-    const response = await fetch(api_url);
-    const data = await response.json();
-    const cardData = data.cards
-    cardData.forEach(index => {
-        cards.push(index)
-    })
-    return cardData
+    try {
+        const response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&type=minion&access_token=US7iDM0Dc1yDugE16xrGV9pMYQGKJ0rFvI');
+        if (!response.ok){
+            throw new Error(`Failed to fetcb posts: ${response.status}`)
+        }
+        const data = await response.json();
+        return data;
+    }catch(e){
+        console.log("Error!")
+        console.log(e)}
 }
-getCards();
-
-
-
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
 const manaCost = document.getElementById("manaCost");
@@ -30,27 +26,31 @@ let userScoreDisplay = document.getElementById("userScore");
 let cpuScoreDisplay = document.getElementById("cpuScore");
 
 //create photos of cards to be displayed
-let mainCardPic = document.getElementById("main_Card");
-let versusCardPic = document.getElementById("versus_Card");
+let userCardPic = document.getElementById("user_Card");
+let cpuCardPic = document.getElementById("cpu_Card");
 
 //cards to be displayed
 let mainCard = []
-let versusCard = []
+let cpuCard = []
 
 //User score and cpu score
 let userScore = 0;
 let cpuScore = 0;
 
-//Randomly select cards 
-// function shuffleCards() {
-//     let deckLength = cards.length;
-//     let userCardCount = 0;
-//     let cpuCardCount = 0;
+// Randomly select cards 
+function shuffleCards() {
+    getCards().then (data => {
+        let cardData = data.cards
+        let deckLength = cardData.length;
+        let userCardCount = 0;
+        let cpuCardCount = 0;
 
-//     while(--deckLength > 0) {
-//         let cardIndex = Math.floor(Math.random() * deckLength(deckLength +1))
-//         let randomizedCard = cards.splice(cardIndex, 1);
-//         console.log(randomizedCard)
-//     }
-// }
-// shuffleCards()
+        while(--deckLength > 0) {
+            let cardIndex = Math.floor(Math.random() * (deckLength +1))
+            let randomizedCard = cardData.splice(cardIndex, 1);
+            if(userCardCount > cpuCardCount) {
+                cpuCard.push(randomizedCard[0])
+            }
+        }
+    })
+}
