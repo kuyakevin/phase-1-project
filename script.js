@@ -12,9 +12,13 @@ async function getCards() {
 }
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
-const manaCost = document.getElementById("manaCost");
-const attackPoints = document.getElementById("attackPoints");
-const healthPoints = document.getElementById("healthPoints");
+const manaCostButton = document.getElementById("manaCostButton");
+const attackButton = document.getElementById("attackButton");
+const healthButton = document.getElementById("healthButton");
+const cardName = document.getElementById("card-name");
+const cardEffect = document.getElementById("card-effect");
+const flavorText = document.getElementById("flavor-text");
+const resetButton = document.getElementById("resetButton")
 
 //create containers for displaying messages, names, and scores
 let messageDisplay = document.getElementById("messageDisplay");
@@ -120,5 +124,23 @@ function roundResult(result) {
         cpuCards.push(cpuCurrent.splice(0,1)[0]);
         playGame();
     }
-    
 }
+
+function playGame() {
+    if(userCards.length < 10 && cpuCards.length < 10) {
+        currentCard();
+    } else if (userCards.length == 10) {
+        messageDisplay.textContent = "CPU Wins";
+        resetButton.style.display = "block";
+        manaCostButton.style.display = "none";
+        attackButton.style.display = "none";
+        healthButton.style.display = "none";
+    } else if (cpuCards.length == 10){
+        messageDisplay.textContent = "You Win!";
+        resetButton.style.display = "block";
+        manaCostButton.style.display = "none";
+        attackButton.style.display = "none";
+        healthButton.style.display = "none";
+    }
+}
+
