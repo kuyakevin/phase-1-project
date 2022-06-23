@@ -8,21 +8,15 @@ body {
     justify-content: space-evenly;
 } 
 
-#userScore {
+#user-Score {
     padding: 0px;
 }
 
-#cpuScore {
+#cpu-Score {
     padding: 0px;
 }
 
-#cardContainer{
-    display: flex;
-    justify-content: space-evenly;
-    height: 100vh;    
-} 
-
-#userCurrent {
+#user-Current {
     display: flex;
     float: left;
     justify-content: space-evenly;
@@ -34,7 +28,7 @@ body {
     padding-left: 120px;
 }
 
-#cpuCurrent {
+#cpu-Current {
     display: flex;
     float: right;
     justify-content: space-evenly;
@@ -65,12 +59,14 @@ h2 {
     display: none;
 } 
 
-#cpuCardPic { 
-    height: 200px; 
+#cpu-Card { 
+    clip-path: polygon(26% 96%, 73% 96%, 76% 86%, 85% 79%, 85% 67%, 85% 53%, 71% 51%, 75% 35%, 73% 24%, 66% 14%, 57% 8%, 42% 8%, 32% 13%, 25% 20%, 21% 32%, 24% 44%, 29% 53%, 11% 54%, 11% 65%, 11% 73%, 11% 83%, 24% 86%);
+    height: 345px;
 } 
 
-#userCardPic { 
-    height: 200px;  
+#user-Card { 
+    clip-path: polygon(26% 96%, 73% 96%, 76% 86%, 85% 79%, 85% 67%, 85% 53%, 71% 51%, 75% 35%, 73% 24%, 66% 14%, 57% 8%, 42% 8%, 32% 13%, 25% 20%, 21% 32%, 24% 44%, 29% 53%, 11% 54%, 11% 65%, 11% 73%, 11% 83%, 24% 86%);
+    height: 345px;
 } 
 
 #button-container { 
@@ -79,6 +75,6 @@ h2 {
 } 
 
 #statButtons {
-    padding-left: 120px;
+    padding-left: 105px;
     padding-bottom: 200px;
 }
