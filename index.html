@@ -7,16 +7,42 @@
     <title>Topdeck Trump</title>
 </head>
 <body>
-
-    <div id="sampleSpace">
+    <div><h1 id="messageDisplay"></h1></div>
+    <div id="scores">
+        <h2 id="userScore">Your Score: 0</h2>
+        <h2 id="cpuScore">CPU's Score: 0</h2>
     </div>
 
-    <div id='bottom-container'>
-        <div id='stat-btns'>
-            <button id="manaCost">Mana Cost</button> 
-            <button id="attackPoints">Attack Value</button>
-            <br>
-            <button id="healthPoints">Health Value</button>
+    <div id="cardContainer">
+        <div id="user-Current">
+            <div>
+                <h2 id="userScore">Your Score: 0</h2>
+            </div>
+            <div>
+                <h2>Your Card</h2>
+                <img id="user_card" src="">
+            </div>
+        </div>
+
+        <div id="cpu-Current">
+            <div>
+                <h2 id="cpuScore">CPU Score: 0</h2>
+            </div>
+            <div>
+                <h2>CPU's Card</h2>
+                <img id="cpu_Card" src="">
+            </div>
+        </div>
+        <div>
+            <button id="resetButton">Play Again?</button>
+        </div>
+    </div>
+
+    <div id='button-container'>
+        <div id='statButtons'>
+            <button id="manaCostButton">Mana Cost</button> 
+            <button id="attackButton">Attack Value</button>
+            <button id="healthButton">Health Value</button>
         </div>
     </div>
 
