@@ -23,12 +23,12 @@ const resetButton = document.getElementById("resetButton")
 
 //create containers for displaying messages, names, and scores
 let messageDisplay = document.getElementById("messageDisplay");
-let userScoreDisplay = document.getElementById("userScore");
-let cpuScoreDisplay = document.getElementById("cpuScore");
+let userScoreDisplay = document.getElementById("user-Score");
+let cpuScoreDisplay = document.getElementById("cpu-Score");
 
 //create photos of cards to be displayed
-let userCardPic = document.getElementById("user_Card");
-let cpuCardPic = document.getElementById("cpu_Card");
+let userCardPic = document.getElementById("user-Card");
+let cpuCardPic = document.getElementById("cpu-Card");
 
 //cards to be stored in each "deck"
 let userCards = []
@@ -91,8 +91,10 @@ function currentCard() {
         // console.log(userCurrent[0]);
         // console.log(cpuCurrent[0]); => results in one card being chosen from the array
         
-        userCardPic.src = `${userCurrent[0].cropImage}`
-        cpuCardPic.src = `${cpuCurrent[0].cropImage}`      
+        //console.log(userCurrent[0].cropImage) => grabs url of cropImage of card
+
+        userCardPic.src = `${userCurrent[0].image}`
+        cpuCardPic.src = `${cpuCurrent[0].image}`      
     })
 }
 
