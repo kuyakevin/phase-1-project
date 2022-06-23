@@ -144,3 +144,24 @@ function playGame() {
     }
 }
 
+resetButton.addEventListener("click", () => {
+    userScore = 0;
+    cpuScore = 0;
+    messageDisplay.style.display = "none";
+    currentCard();
+})
+
+manaCostButton.addEventListener("click", () => {
+    compareStat("manaCost")
+})
+
+attackButton.addEventListener("click", () => {
+    compareStat("attack");
+})
+
+healthButton.addEventListener("click", () => {
+    compareStat("health");
+})
+
+shuffleCards();
+currentCard();
