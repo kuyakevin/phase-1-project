@@ -3,6 +3,10 @@ body {
     padding: 0;
 }
 
+#messageDisplay {
+    text-align: center;
+}
+
 #scores {
     display: flex;
     justify-content: space-evenly;
@@ -53,6 +57,7 @@ button {
 
 h2 {
     height: 30px;
+    margin: auto;
 }
 
 #resetButton{
@@ -75,6 +80,6 @@ h2 {
 } 
 
 #statButtons {
-    padding-left: 105px;
-    padding-bottom: 200px;
+    padding-left: 400px;
+    height: 453px;
 }
