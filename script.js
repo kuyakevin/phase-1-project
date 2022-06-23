@@ -42,17 +42,25 @@ let cpuScore = 0;
 let userCurrent = []
 let cpuCurrent = []
 
+//functions to call
+shuffleCards();
+currentCard();
 // Randomly select cards 
 function shuffleCards() {
     //callback getCards function, keeping mind it is an async function
     getCards().then (data => {
+        //console.log(data) => debug to confirm value of data is array from fetch
         let deckLength = data.length;
+        //console.log(deckLength) => 40 
+        //console.log(data[0]) => correctly displays array of first object in data
         let userCardCount = 0;
         let cpuCardCount = 0;
 
         while(--deckLength > 0) {
             let cardIndex = Math.floor(Math.random() * (deckLength +1))
+            //console.log(cardIndex) => randomized index of cards to select.
             let randomizedCard = data.splice(cardIndex, 1);
+            //console.log(randomizedCard) => correctly randomizes cards. 
             if(userCardCount > cpuCardCount) {
                 cpuCards.push(randomizedCard[0])
                 cpuCardCount +=1;
@@ -64,23 +72,31 @@ function shuffleCards() {
     })
 }
 
-function currentCard() {
 
-    //select random card from each deck
-    let user = Math.floor((Math.random() * userCards.length));
-    let cpu = Math.floor((Math.random() * userCards.length));
+function currentCard() {
+    getCards().then(() => {
+        //select random card from each deck
+        let user = Math.floor((Math.random() * userCards.length));
+        let cpu = Math.floor((Math.random() * cpuCards.length));
+
+        // console.log(userCards)
+        // console.log(cpuCards) => both con logs return array of cards
+
+        // console.log("User Card Index: " + user) => Selects random card 
+        // console.log("CPU Card Index: " + cpu) => Selects random card
         
-    // userCurrent.push(userCards.splice(user, 1)[0]);
-    // cpuCurrent.push(cpuCards.splice(cpu, 1)[0]);
+        userCurrent.push(userCards.splice(user, 1)[0]);
+        cpuCurrent.push(cpuCards.splice(cpu, 1)[0]);
         
-    console.log(userCurrent);
-    console.log(cpuCurrent);
+        // console.log(userCurrent[0]);
+        // console.log(cpuCurrent[0]); => results in one card being chosen from the array
         
-    // userCardPic.src = `${userCurrent[0].cropImage}`
-    // cpuCardPic.src = `${cpuCurrent[0].cropImage}`
-    
+        userCardPic.src = `${userCurrent[0].cropImage}`
+        cpuCardPic.src = `${cpuCurrent[0].cropImage}`      
+    })
 }
 
+    
 function compareStat(stat) {
     console.log(`the user ${stat} is: ${userCurrent[0][stat]}`)
     console.log(`the cpu ${stat} is: ${cpuCurrent[0][stat]}`)
@@ -165,5 +181,4 @@ healthButton.addEventListener("click", () => {
     compareStat("health");
 })
 
-shuffleCards();
-currentCard();
+// currentCard();
