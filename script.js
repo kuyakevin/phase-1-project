@@ -1,11 +1,12 @@
 async function getCards() {
     try {
-        const response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=US7iDM0Dc1yDugE16xrGV9pMYQGKJ0rFvI');
+        const response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=UST8Xp074NSS5LTxH3Omix3MlJIaKg2Y3c');
         if (!response.ok){
             throw new Error(`Failed to fetcb posts: ${response.status}`)
         }
         const data = await response.json();
-        return data;
+        const cardData = data.cards
+        return cardData
     }catch(e){
         console.log("Error!")
         console.log(e)}
@@ -45,14 +46,13 @@ let cpuCurrent = []
 function shuffleCards() {
     //callback getCards function, keeping mind it is an async function
     getCards().then (data => {
-        let cardData = data.cards
-        let deckLength = cardData.length;
+        let deckLength = data.length;
         let userCardCount = 0;
         let cpuCardCount = 0;
 
         while(--deckLength > 0) {
             let cardIndex = Math.floor(Math.random() * (deckLength +1))
-            let randomizedCard = cardData.splice(cardIndex, 1);
+            let randomizedCard = data.splice(cardIndex, 1);
             if(userCardCount > cpuCardCount) {
                 cpuCards.push(randomizedCard[0])
                 cpuCardCount +=1;
@@ -65,23 +65,25 @@ function shuffleCards() {
 }
 
 function currentCard() {
+
     //select random card from each deck
     let user = Math.floor((Math.random() * userCards.length));
     let cpu = Math.floor((Math.random() * userCards.length));
-
-    userCurrent.push(userCards.splice(user, 1)[0]);
-    cpuCurrent.push(cpuCards.splice(cpu, 1)[0]);
-
-    // console.log(userCurrent[0]);
-    // console.log(cpuCurrent[0]);
-
-    userCardPic.src = `${userCurrent[0].cropImage}`
-    cpuCardPic.src = `${cpuCurrent[0].cropImage}`
+        
+    // userCurrent.push(userCards.splice(user, 1)[0]);
+    // cpuCurrent.push(cpuCards.splice(cpu, 1)[0]);
+        
+    console.log(userCurrent);
+    console.log(cpuCurrent);
+        
+    // userCardPic.src = `${userCurrent[0].cropImage}`
+    // cpuCardPic.src = `${cpuCurrent[0].cropImage}`
+    
 }
 
 function compareStat(stat) {
-    // console.log(`the user ${stat} is: ${userCurrent[0][stat]}`)
-    // console.log(`the cpu ${stat} is: ${cpuCurrent[0][stat]}`)
+    console.log(`the user ${stat} is: ${userCurrent[0][stat]}`)
+    console.log(`the cpu ${stat} is: ${cpuCurrent[0][stat]}`)
 
     let userStat = userCurrent[0][stat];
     let cpuStat = cpuCurrent[0][stat];
