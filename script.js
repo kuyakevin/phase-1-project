@@ -119,8 +119,8 @@ function roundResult(result) {
         messageDisplay.textContent = ("You win this round!");
         userScore +=1;
         userScoreDisplay.textContent = `Your score: ${userScore}`;
-        userCards.push(cpuCurrent.splice(0,1)[0]);
-        userCards.push(userCurrent.splice(0,1)[0]);
+        // userCards.push(cpuCurrent.splice(0,1)[0]);
+        // userCards.push(userCurrent.splice(0,1)[0]);
         setTimeout ( () => {
             messageDisplay.textContent = ""
         }, 1500);
@@ -129,16 +129,14 @@ function roundResult(result) {
         messageDisplay.textContent = ("You lose this round");
         cpuScore +=1;
         cpuScoreDisplay.textContent = `CPU score: ${cpuScore}`;
-        cpuCards.push(userCurrent.splice(0,1)[0]);
-        cpuCards.push(cpuCurrent.splice(0,1)[0]);
+        // cpuCards.push(userCurrent.splice(0,1)[0]);
+        // cpuCards.push(cpuCurrent.splice(0,1)[0]);
         setTimeout ( () => {
             messageDisplay.textContent = ""
         }, 1500);
         playGame();
     } else { 
         messageDisplay.textContent = ("This round is a draw");
-        userCards.push(userCurrent.splice(0,1)[0]);
-        cpuCards.push(cpuCurrent.splice(0,1)[0]);
         setTimeout ( () => {
             messageDisplay.textContent = ""
         }, 1500);
@@ -147,15 +145,15 @@ function roundResult(result) {
 }
 
 function playGame() {
-    if(userCards.length < 30 && cpuCards.length < 30) {
+    if(userScore < 5 && cpuScore < 5) {
         currentCard();
-    } else if (userCards.length == 30) {
+    } else if (userScore == 5) {
         messageDisplay.textContent = "You Win!";
         resetButton.style.display = "block";
         manaCostButton.style.display = "none";
         attackButton.style.display = "none";
         healthButton.style.display = "none";
-    } else if (cpuCards.length == 30){
+    } else if (cpuScore == 5){
         messageDisplay.textContent = "CPU Wins!";
         resetButton.style.display = "block";
         manaCostButton.style.display = "none";
