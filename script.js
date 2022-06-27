@@ -1,25 +1,22 @@
 async function getCards() {
     try {
-        const response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=UST8Xp074NSS5LTxH3Omix3MlJIaKg2Y3c');
+        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=US5aWdmYxnEiviBwd4mK6F67oqk6obJRoj');
         if (!response.ok){
             throw new Error(`Failed to fetcb posts: ${response.status}`)
         }
-        const data = await response.json();
-        const cardData = data.cards
+        let data = await response.json();
+        let cardData = data.cards
         return cardData
     }catch(e){
         console.log("Error!")
         console.log(e)}
-}
+}``
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
-const manaCostButton = document.getElementById("manaCostButton");
-const attackButton = document.getElementById("attackButton");
-const healthButton = document.getElementById("healthButton");
-const cardName = document.getElementById("card-name");
-const cardEffect = document.getElementById("card-effect");
-const flavorText = document.getElementById("flavor-text");
-const resetButton = document.getElementById("resetButton")
+let manaCostButton = document.getElementById("manaCostButton");
+let attackButton = document.getElementById("attackButton");
+let healthButton = document.getElementById("healthButton");
+let resetButton = document.getElementById("resetButton");
 
 //create containers for displaying messages, names, and scores
 let messageDisplay = document.getElementById("messageDisplay");
@@ -30,7 +27,7 @@ let cpuScoreDisplay = document.getElementById("cpu-Score");
 let userCardPic = document.getElementById("user-Card");
 let cpuCardPic = document.getElementById("cpu-Card");
 
-//cards to be stored in each "deck"
+//cards to be stored in each deck   
 let userCards = []
 let cpuCards = []
 
@@ -42,9 +39,7 @@ let cpuScore = 0;
 let userCurrent = []
 let cpuCurrent = []
 
-//functions to call
-shuffleCards();
-currentCard();
+
 // Randomly select cards 
 function shuffleCards() {
     //callback getCards function, keeping mind it is an async function
@@ -78,30 +73,30 @@ function currentCard() {
         //select random card from each deck
         let user = Math.floor((Math.random() * userCards.length));
         let cpu = Math.floor((Math.random() * cpuCards.length));
-
-        // console.log(userCards)
+        
+        let userCard = userCards[user]
+        let cpuCard = cpuCards[cpu]
+        // console.log(userCard)
+        // console.log(cpuCard)
         // console.log(cpuCards) => both con logs return array of cards
 
         // console.log("User Card Index: " + user) => Selects random card 
         // console.log("CPU Card Index: " + cpu) => Selects random card
-        
-        userCurrent.push(userCards.splice(user, 1)[0]);
-        cpuCurrent.push(cpuCards.splice(cpu, 1)[0]);
-        
+        userCurrent.push(userCard);
+        cpuCurrent.push(cpuCard);
         // console.log(userCurrent[0]);
         // console.log(cpuCurrent[0]); => results in one card being chosen from the array
         
-        //console.log(userCurrent[0].cropImage) => grabs url of cropImage of card
-
-        userCardPic.src = `${userCurrent[0].image}`
-        cpuCardPic.src = `${cpuCurrent[0].image}`      
+        // console.log(userCurrent[0].cropImage) => grabs url of cropImage of card
+    
+        userCardPic.src = userCard.image
+        cpuCardPic.src = cpuCard.image    
     })
 }
-
     
 function compareStat(stat) {
-    console.log(`the user ${stat} is: ${userCurrent[0][stat]}`)
-    console.log(`the cpu ${stat} is: ${cpuCurrent[0][stat]}`)
+    // console.log(`the user ${stat} is: ${userCurrent[0][stat]}`)
+    // console.log(`the cpu ${stat} is: ${cpuCurrent[0][stat]}`)
 
     let userStat = userCurrent[0][stat];
     let cpuStat = cpuCurrent[0][stat];
@@ -112,7 +107,7 @@ function compareStat(stat) {
             roundResult("user win")
         } else if (userStat < cpuStat) {
             roundResult("cpu win");
-        }else {
+        }else if (userStat = cpuStat) {
             roundResult("Draw")
         }
     }
@@ -121,42 +116,47 @@ function compareStat(stat) {
 
 function roundResult(result) {
     if(result == "user win") {
+        messageDisplay.textContent = ("You win this round!");
         userScore +=1;
         userScoreDisplay.textContent = `Your score: ${userScore}`;
         userCards.push(cpuCurrent.splice(0,1)[0]);
         userCards.push(userCurrent.splice(0,1)[0]);
-        messageDisplay.textContent = "You win this round!";
         setTimeout ( () => {
-            messageDisplay.style.display = "none"
-        }, 2000);
+            messageDisplay.textContent = ""
+        }, 1500);
+        playGame();
     } else if (result == "cpu win") {
+        messageDisplay.textContent = ("You lose this round");
         cpuScore +=1;
         cpuScoreDisplay.textContent = `CPU score: ${cpuScore}`;
         cpuCards.push(userCurrent.splice(0,1)[0]);
         cpuCards.push(cpuCurrent.splice(0,1)[0]);
-        messageDisplay.textContent = "You lose this round";
         setTimeout ( () => {
-            messageDisplay.style.display = "none"
-        }, 2000);
-    } else {
-        messageDisplay.textContent("This round is a draw");
+            messageDisplay.textContent = ""
+        }, 1500);
+        playGame();
+    } else { 
+        messageDisplay.textContent = ("This round is a draw");
         userCards.push(userCurrent.splice(0,1)[0]);
         cpuCards.push(cpuCurrent.splice(0,1)[0]);
+        setTimeout ( () => {
+            messageDisplay.textContent = ""
+        }, 1500);
         playGame();
     }
 }
 
 function playGame() {
-    if(userCards.length < 10 && cpuCards.length < 10) {
+    if(userCards.length < 30 && cpuCards.length < 30) {
         currentCard();
-    } else if (userCards.length == 10) {
-        messageDisplay.textContent = "CPU Wins";
+    } else if (userCards.length == 30) {
+        messageDisplay.textContent = "You Win!";
         resetButton.style.display = "block";
         manaCostButton.style.display = "none";
         attackButton.style.display = "none";
         healthButton.style.display = "none";
-    } else if (cpuCards.length == 10){
-        messageDisplay.textContent = "You Win!";
+    } else if (cpuCards.length == 30){
+        messageDisplay.textContent = "CPU Wins!";
         resetButton.style.display = "block";
         manaCostButton.style.display = "none";
         attackButton.style.display = "none";
@@ -165,10 +165,7 @@ function playGame() {
 }
 
 resetButton.addEventListener("click", () => {
-    userScore = 0;
-    cpuScore = 0;
-    messageDisplay.style.display = "none";
-    currentCard();
+    location.reload()
 })
 
 manaCostButton.addEventListener("click", () => {
@@ -183,4 +180,5 @@ healthButton.addEventListener("click", () => {
     compareStat("health");
 })
 
-// currentCard();
+shuffleCards();
+currentCard();
