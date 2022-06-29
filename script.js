@@ -1,12 +1,11 @@
 async function getCards() {
     try {
-        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=USdWrGkUEBaI5Mun1KfXN01AkZnQapr3E1');
+        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=USzso7bahUcccBivarjrTlQSSVh5Oduh7m');
         if (!response.ok){
-            throw new Error(`Failed to fetcb posts: ${response.status}`)
+            throw new Error(`Failed to fetch posts: ${response.status}`)
         }
         let data = await response.json();
         let cardData = data.cards
-        console.log(data)
         return cardData
     }catch(e){
         console.log("Error!")
@@ -75,7 +74,6 @@ function shuffleCards() {
 function currentCard() {
     getCards().then(() => {
         //select random card from each deck
-        console.log(userCurrent)
         let user = Math.floor((Math.random() * userCards.length));
         let cpu = Math.floor((Math.random() * cpuCards.length));
             
@@ -93,8 +91,6 @@ function currentCard() {
         // console.log(cpuCurrent[0]); => results in one card being chosen from the array
         
         // console.log(userCurrent[0].cropImage) => grabs url of cropImage of card
-        console.log(userCard.manaCost, userCard.attack, userCard.health)
-        console.log(cpuCard.manaCost, cpuCard.attack, cpuCard.health)
         userCardPic.src = userCard.image
         cpuCardPic.src = cpuCard.image    
     })
@@ -198,9 +194,38 @@ function toggleFullScreen() {
       }
     }
   }
-
   document.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
       toggleFullScreen();
     }
   }, false);
+function message () {
+    alert("Pick the stat that you think your card will have a higher value in. \n\nIf you guess correctly, you will get a point. \nIf you guess incorrectly, the CPU will get a point. \nFirst to 5 points wins! \n\nPress enter to enable and disable fullscreen mode. \n\n Press the button at the top to enable and disable dark mode")
+}
+message()
+
+window.addEventListener('load', () => {
+    if (!localStorage.getItem('theme')) {
+        localStorage.setItem('theme', 'light');
+    }
+
+    const themeSelector=document.querySelector('#themeSelector');
+        if(localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            themeSelector.textContent = '☀️';
+        }else{
+            themeSelector.textContent = '🌙';
+        }
+
+        themeSelector.addEventListener('click', () => {
+            if (localStorage.getItem('theme') === 'light') {
+                localStorage.setItem('theme', 'dark');
+                themeSelector.textContent = '☀️';
+            }else{
+                localStorage.setItem('theme', 'light');
+                themeSelector.textContent = '🌙';
+            }
+
+            document.body.classList.toggle('dark');
+        });
+    });
