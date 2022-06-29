@@ -12,14 +12,6 @@ body {
     justify-content: space-evenly;
 } 
 
-#user-Score {
-    padding: 0px;
-}
-
-#cpu-Score {
-    padding: 0px;
-}
-
 #user-Current {
     display: flex;
     float: left;
@@ -80,10 +72,15 @@ h2 {
 } 
 
 #statButtons {
-     padding-left: 400px;
-    height: 453px;
+    height: 390px;
+    padding-left: 430px;
 }
 
 #header {
     padding-left: 50px
+}
+
+.dark {
+    background-color: #1a1d24; 
+    color: #efefef;
 }
