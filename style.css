@@ -80,6 +80,10 @@ h2 {
 } 
 
 #statButtons {
-    padding-left: 400px;
+     padding-left: 400px;
     height: 453px;
+}
+
+#header {
+    padding-left: 50px
 }

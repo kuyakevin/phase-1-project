@@ -1,22 +1,25 @@
 async function getCards() {
     try {
-        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=US5aWdmYxnEiviBwd4mK6F67oqk6obJRoj');
+        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&access_token=USdWrGkUEBaI5Mun1KfXN01AkZnQapr3E1');
         if (!response.ok){
             throw new Error(`Failed to fetcb posts: ${response.status}`)
         }
         let data = await response.json();
         let cardData = data.cards
+        console.log(data)
         return cardData
     }catch(e){
         console.log("Error!")
         console.log(e)}
-}``
+}
 //create buttons to compare different values of cards
 //assume we are only looking at base values without applying card effects
 let manaCostButton = document.getElementById("manaCostButton");
 let attackButton = document.getElementById("attackButton");
 let healthButton = document.getElementById("healthButton");
 let resetButton = document.getElementById("resetButton");
+let gamerMusic = document.getElementById("my_audio")
+
 
 //create containers for displaying messages, names, and scores
 let messageDisplay = document.getElementById("messageDisplay");
@@ -44,6 +47,7 @@ let cpuCurrent = []
 function shuffleCards() {
     //callback getCards function, keeping mind it is an async function
     getCards().then (data => {
+        console.log(data)
         //console.log(data) => debug to confirm value of data is array from fetch
         let deckLength = data.length;
         //console.log(deckLength) => 40 
@@ -71,47 +75,51 @@ function shuffleCards() {
 function currentCard() {
     getCards().then(() => {
         //select random card from each deck
+        console.log(userCurrent)
         let user = Math.floor((Math.random() * userCards.length));
         let cpu = Math.floor((Math.random() * cpuCards.length));
-        
+            
         let userCard = userCards[user]
         let cpuCard = cpuCards[cpu]
         // console.log(userCard)
-        // console.log(cpuCard)
-        // console.log(cpuCards) => both con logs return array of cards
+        // console.log(cpuCards) => both con logs return single card
 
         // console.log("User Card Index: " + user) => Selects random card 
         // console.log("CPU Card Index: " + cpu) => Selects random card
         userCurrent.push(userCard);
         cpuCurrent.push(cpuCard);
+        
         // console.log(userCurrent[0]);
         // console.log(cpuCurrent[0]); => results in one card being chosen from the array
         
         // console.log(userCurrent[0].cropImage) => grabs url of cropImage of card
-    
+        console.log(userCard.manaCost, userCard.attack, userCard.health)
+        console.log(cpuCard.manaCost, cpuCard.attack, cpuCard.health)
         userCardPic.src = userCard.image
         cpuCardPic.src = cpuCard.image    
     })
 }
-    
+
+let i = 0;
+
 function compareStat(stat) {
     // console.log(`the user ${stat} is: ${userCurrent[0][stat]}`)
     // console.log(`the cpu ${stat} is: ${cpuCurrent[0][stat]}`)
 
-    let userStat = userCurrent[0][stat];
-    let cpuStat = cpuCurrent[0][stat];
-
+    let userStat = userCurrent[i][stat];
+    let cpuStat = cpuCurrent[i][stat];
+    i++
+    
     //logic for choosing winner
     if (stat == "manaCost" || stat == "attack" || stat == "health") {
         if (userStat > cpuStat) {
             roundResult("user win")
-        } else if (userStat < cpuStat) {
+        }else if (userStat < cpuStat) {
             roundResult("cpu win");
-        }else if (userStat = cpuStat) {
+        }else if (userStat == cpuStat) {
             roundResult("Draw")
         }
     }
-
 }
 
 function roundResult(result) {
@@ -180,3 +188,19 @@ healthButton.addEventListener("click", () => {
 
 shuffleCards();
 currentCard();
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      toggleFullScreen();
+    }
+  }, false);
