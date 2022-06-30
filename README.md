@@ -7,3 +7,12 @@ Topdeck Trump is a minigame that compares a limited database of legendary hearth
 Hearthstone is a card game made by Blizzard Entertainment.
 
 ![Hearthstone Card](https://static.wikia.nocookie.net/hearthstone_gamepedia/images/4/4a/EX1_559_Premium1.png/revision/latest?cb=20220123081912)
+
+A hearthstone card will consist of 3 main values: Mana Cost, Attack, and Health. 
+
+Mana Cost represents how much mana is required to play that card. The Mana Cost of a card can be found on the top left of the card. 
+
+Attack represents how much attack power a card has, while Health represents how much health points a card has. If two cards battle, they both do damange to each other. If the attack value exeeds the health value, then the card is destroyed. It is very much possible that when two cards battle, both cards can be destroyed. This value can be seen
+
+Most cards also have en effect that can be seen in the box below the portrait. Generally cards that have a multi round effect will tend to have a higher Mana Cost. This is also the same for cards that have higher Attack and Health values. 
+
