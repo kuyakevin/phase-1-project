@@ -46,7 +46,6 @@ let cpuCurrent = []
 function shuffleCards() {
     //callback getCards function, keeping mind it is an async function
     getCards().then (data => {
-        console.log(data)
         //console.log(data) => debug to confirm value of data is array from fetch
         let deckLength = data.length;
         //console.log(deckLength) => 40 
