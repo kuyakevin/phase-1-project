@@ -33,7 +33,7 @@ Frequent hearthstone players should be able to use in game knowledge to make the
 # Features
 
 <h2>Fullscreen Mode</h2>
-Press the __enter__ key to enter and exit fullscreen mode.
+Press the <strong>enter</strong> key to enter and exit fullscreen mode.
 
 <h2>Dark Mode</h2>
 Press the ☀️ button to change to dark mode. The background will turn black and relative text will invert to white.
