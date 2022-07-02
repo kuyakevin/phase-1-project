@@ -30,3 +30,21 @@ Most cards also have en effect that can be seen in the box below the portrait. G
 
 Frequent hearthstone players should be able to use in game knowledge to make the correct guess. For others, they will have to use inductive reasoning based off of only two things: the image, and the effect. Good luck and have fun! 
 
+# Features
+
+<h2>Fullscreen Mode</h2>
+Press the '''bash return ''' key to enter and exit fullscreen mode.
+
+<h2>Dark Mode</h2>
+Press the <button id="themeSelector"></button> button to change to dark mode. The background will turn black and relative text will invert to white.
+
+# Future Goals/Current Issues
+
+<h2>Guaranteed Wins and Losses</h2>
+Currently there is a logic flaw that hinders gameplay. There is an issue where one card can have better stats than the other in each category, creating scenarios where the user will have a guaranteed win or guaranteed loss. To address this, logical operators will have to be put into place so only one stat will be greater than the other card, so the user will only have one stat to guess correctly, while the other two stats will result in a loss. 
+
+<h2>OAuth</h2>
+The app will not work on a daily basis due to the OAuth key expiring after 24 hours, and there is no renewal function set in place in this program. Better understandment on how to set up OAuth properly will fix this. 
+
+<h2>Switch between card games</h2>
+I want to eventually add a selector of other card games to apply to this program. Some examples include Magic The Gathering, Yu-Gi-Oh, and Pokemon. Adding a dropdown menu to select another card game will be a hopeful addition in the future. 
