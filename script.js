@@ -1,6 +1,6 @@
 async function getCards() {
     try {   
-        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&pageSize=100&access_token=USSTiXs7CdjS7VLlmMczhb6zQzoFkCi5oq');
+        let response = await fetch('https://us.api.blizzard.com/hearthstone/cards?locale=en_US&set=standard&collectible=1&rarity=legendary&type=minion&pageSize=100&access_token=USBAa1KiPdne715SqV4mlR646VOB15T0YS');
         if (!response.ok){
             throw new Error(`Failed to fetch posts: ${response.status}`)
         }
